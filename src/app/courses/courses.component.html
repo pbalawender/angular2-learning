@@ -1,5 +1,12 @@
-<h1>Hello in Courses</h1>
-<div *ngFor="let course of courses">
-  <course-details [course]="course" ></course-details>
-</div>
-<router-outlet></router-outlet>
+<main>
+  <div class="row">
+    <div class="col-md-12">
+      <ol class="list-group">
+        <li class="list-group-item" *ngFor="let course of courses">
+          <course-details [course]="course" ></course-details>
+        </li>
+      </ol>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</main>

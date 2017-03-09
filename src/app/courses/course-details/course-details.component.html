@@ -1,4 +1,6 @@
 <div>
-  <span>{{course.name}}</span><span> {{course.date}}</span>
+  <span>{{course.name}}</span>
+  <span class="badge extra-space-on-left">{{course.duration}}&nbsp;min</span>
+  <span class="extra-space-on-left">{{course.date | date}}</span>
   <div>{{course.description}}</div>
 </div>

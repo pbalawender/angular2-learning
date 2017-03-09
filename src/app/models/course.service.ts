@@ -8,7 +8,7 @@ export class CourseService {
   constructor() {
     this.courses = [
       new Course('Course #1', 60, new Date(), 'Lorem ipsum...'),
-      new Course('Course #2', 120, new Date(), '...lorem ipsum')
+      new Course('Course #2 (with longer name)', 120, new Date(), '...ipsum lorem?')
     ];
   }
 
