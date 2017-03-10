@@ -12,12 +12,24 @@ export class CoursesComponent implements OnInit {
 
   constructor(private courseService: CourseService) {
     this.courses = this.courseService.getCourses();
-    console.log(JSON.stringify(this.courses));
   }
 
   public ngOnInit() {
-    console.log('hello `Courses` component');
+    // console.log('hello `Courses` component');
+  }
 
+  public filterCourses(text) {
+    this.courses = this.courseService.findCourses(text);
+  }
+
+  public handleCourseDelete(course: Course) {
+    console.log(`Trying to delete course ${course.name}`);
+    this.courses = this.courseService.deleteCourse(course);
+  }
+
+  public handleCourseEdit(course: Course) {
+    console.log(`Trying to edit course ${course.name}`);
+    this.courses = this.courseService.editCourse(course);
   }
 
 }

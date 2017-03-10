@@ -1,9 +1,25 @@
 <main>
+  <div class="row row-with-extra-space">
+    <div class="col-md-6">
+      <div class="input-group">
+        <input #searchInput type="text" class="form-control" placeholder="Search for..." (keyup)="filterCourses($event.target.value)">
+        <span class="input-group-btn">
+        <button class="btn btn-default primary-bg-color" type="button" (click)="filterCourses(searchInput.value)">Go!</button>
+      </span>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <button class="primary-bg-color btn btn-default pull-right">
+        <i class="glyphicon glyphicon-plus"></i>
+        Add Course
+      </button>
+    </div>
+  </div>
   <div class="row">
     <div class="col-md-12">
       <ol class="list-group">
         <li class="list-group-item" *ngFor="let course of courses">
-          <course-details [course]="course" ></course-details>
+          <course-details [course]="course" (onDelete)="handleCourseDelete(course)" (onEdit)="handleCourseEdit(course)" ></course-details>
         </li>
       </ol>
       <router-outlet></router-outlet>

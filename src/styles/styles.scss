@@ -17,3 +17,24 @@ nav a {
   text-decoration: none;
   border-radius: 4px;
 }
+
+.primary-color {
+  color: $primary-color !important;
+}
+.secondary-color {
+  color: $secondary-color !important;
+}
+.primary-bg-color {
+  background-color: $primary-color !important;
+  color: #ffffff !important;
+}
+.secondary-bg-color {
+  background-color: $secondary-color !important;
+  color: #ffffff !important;
+}
+
+.row-with-extra-space {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router, Event } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'breadcrumb',
@@ -6,7 +8,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./breadcrumb.component.css'],
 })
 export class BreadcrumbComponent {
-  constructor() {
-    console.log('Breadcrumb');
+  private routes: string[] = [];
+
+  constructor(router: Router) {
+    // const routerState = router.routerState;
+    // console.log('Breadcrumb: ' + routerState);
+    // const routerEvents: Observable<Event> = router.events;
+    // routerEvents.subscribe((value: Event) => {
+    //   console.log(value.toString());
+    // }, (error) => {
+    //   console.error(error);
+    // });
   }
 }

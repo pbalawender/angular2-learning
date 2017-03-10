@@ -20,16 +20,28 @@ export class CourseService {
     // to implement
   }
 
-  public deleteCourse(course: Course): void {
-    // to implement
+  public deleteCourse(course: Course): Course[] {
+    let index = this.courses.indexOf(course);
+    console.log(`Removing course with index ${index}`);
+    if (index > -1) {
+      this.courses.splice(index, 1);
+    }
+    return this.courses;
   }
 
-  public editCourse(course: Course): void {
-    // to implement
+  public editCourse(course: Course): Course[] {
+    return this.courses;
   }
 
   public findCourses(search: string): Course[] {
-    return [];
+    console.log(`New filter: ${search}`);
+    if (search && search.length > 0) {
+      return this.courses.filter((course) =>
+        (course.name.toLowerCase().indexOf(search.toLowerCase()) > -1
+        || course.description.toLowerCase().indexOf(search.toLowerCase()) > -1));
+    } else {
+      return this.courses;
+    }
   }
 
 }

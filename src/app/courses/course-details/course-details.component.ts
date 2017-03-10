@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { Course } from '../../models';
 
 @Component({
@@ -8,9 +8,11 @@ import { Course } from '../../models';
 })
 export class CourseDetailsComponent implements OnInit {
   @Input() public course: Course;
+  @Output() public onEdit = new EventEmitter();
+  @Output() public onDelete = new EventEmitter();
 
   public ngOnInit() {
-    console.log('hello `Course` component');
+    // now it is not empty
   }
 
 }

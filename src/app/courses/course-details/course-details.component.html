@@ -1,6 +1,14 @@
-<div>
-  <span>{{course.name}}</span>
-  <span class="badge extra-space-on-left">{{course.duration}}&nbsp;min</span>
-  <span class="extra-space-on-left">{{course.date | date}}</span>
-  <div>{{course.description}}</div>
+<div class="row">
+  <div class="col-md-10">
+    <span>{{course?.name}}</span>
+    <span class="badge extra-space-on-left">{{course?.duration}}&nbsp;min</span>
+    <span class="extra-space-on-left">{{course?.date | date}}</span>
+    <div>{{course?.description}}</div>
+  </div>
+  <div class="col-md-2">
+    <div class="btn-group-vertical" role="group">
+      <button class="btn btn-info pull-right" (click)="onEdit.emit()"><i class="glyphicon glyphicon-edit pull-left"></i> Edit</button>
+      <button class="btn btn-danger pull-right" (click)="onDelete.emit()"><i class="glyphicon glyphicon-remove pull-left"></i> Delete</button>
+    </div>
+  </div>
 </div>

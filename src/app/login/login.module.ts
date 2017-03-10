@@ -6,16 +6,21 @@ import { RouterModule } from '@angular/router';
 import { routes } from './login.routes';
 
 import { LoginComponent } from './login.component';
+import { LoginIndicatorComponent } from './login-indicator/login-indicator.component';
 
 @NgModule({
   declarations: [
-    LoginComponent
+    LoginComponent,
+    LoginIndicatorComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     RouterModule.forChild(routes)
   ],
+  exports: [
+    LoginIndicatorComponent
+  ]
 })
 export class LoginModule {
 

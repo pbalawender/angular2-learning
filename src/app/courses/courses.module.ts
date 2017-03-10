@@ -10,6 +10,9 @@ import { CourseDetailsComponent } from './course-details';
 import { CourseService } from '../models/';
 
 @NgModule({
+  bootstrap: [
+    CoursesComponent
+  ],
   declarations: [
     CoursesComponent,
     CourseDetailsComponent
@@ -24,5 +27,7 @@ import { CourseService } from '../models/';
   ]
 })
 export class CoursesModule {
-  public static routes = routes;
+  constructor() {
+    // not empty
+  }
 }

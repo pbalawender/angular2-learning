@@ -1,7 +1,5 @@
-import { LoginComponent } from './login.component';
+import { LoginComponent } from './';
 
 export const routes = [
-  { path: '', children: [
-    { path: '', component: LoginComponent },
-  ]},
+  { path: 'login', component: LoginComponent}
 ];
