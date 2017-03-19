@@ -17,11 +17,12 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      <ol class="list-group">
+      <ol class="list-group" *ngIf="courses.length > 0">
         <li class="list-group-item" *ngFor="let course of courses">
           <course-details [course]="course" (onDelete)="handleCourseDelete(course)" (onEdit)="handleCourseEdit(course)" ></course-details>
         </li>
       </ol>
+      <p *ngIf="courses.length === 0" class="alert alert-info" role="alert">Nothing to show a this moment. Please try again or come back later.</p>
       <router-outlet></router-outlet>
     </div>
   </div>

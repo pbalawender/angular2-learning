@@ -23,12 +23,12 @@ export class CoursesComponent implements OnInit {
   }
 
   public handleCourseDelete(course: Course) {
-    console.log(`Trying to delete course ${course.name}`);
+    console.log(`Trying to delete course ${course.id}`);
     this.courses = this.courseService.deleteCourse(course);
   }
 
   public handleCourseEdit(course: Course) {
-    console.log(`Trying to edit course ${course.name}`);
+    console.log(`Trying to edit course ${course.id}`);
     this.courses = this.courseService.editCourse(course);
   }
 
