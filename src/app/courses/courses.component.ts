@@ -8,7 +8,7 @@ import { Course, CourseService } from '../models';
 })
 export class CoursesComponent implements OnInit {
 
-  private courses: Course[];
+  public courses: Course[];
 
   constructor(private courseService: CourseService) {
     this.courses = this.courseService.getCourses();

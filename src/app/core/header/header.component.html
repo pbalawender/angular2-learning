@@ -6,10 +6,10 @@
     <div class="col-md-5">
       <h2 class="primary-color">Angular learning</h2>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6" *ngIf="authorizationService.isAuthenticated()">
       <login-indicator class="pull-right"></login-indicator>
     </div>
-    <div class="col-md-12">
+    <div class="col-md-12" *ngIf="authorizationService.isAuthenticated()">
       <breadcrumb></breadcrumb>
     </div>
   </div>
