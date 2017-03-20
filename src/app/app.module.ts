@@ -33,6 +33,9 @@ import '../styles/styles.scss';
 import '../styles/headings.css';
 import { AuthorizationService } from './models/authorization.service';
 
+import 'jquery';
+import 'bootstrap';
+
 // Application wide providers
 const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS,

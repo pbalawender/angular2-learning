@@ -1,14 +1,27 @@
 <div class="row">
   <div class="col-md-10">
     <span>{{course?.name}}</span>
-    <span class="badge extra-space-on-left">{{course?.duration}}&nbsp;min</span>
-    <span class="extra-space-on-left">{{course?.date | date}}</span>
+    <span class="badge extra-space-on-left">{{course.duration}}&nbsp;min</span>
+    <span class="extra-space-on-left">{{course.date | date}}</span>
     <div>{{course?.description}}</div>
   </div>
   <div class="col-md-2">
     <div class="btn-group-vertical" role="group">
       <button class="btn btn-info pull-right" (click)="onEdit.emit()"><i class="glyphicon glyphicon-edit pull-left"></i> Edit</button>
-      <button class="btn btn-danger pull-right" (click)="onDelete.emit()"><i class="glyphicon glyphicon-remove pull-left"></i> Delete</button>
+      <button class="btn btn-danger pull-right" (click)="modal.open()"><i class="glyphicon glyphicon-remove pull-left"></i> Delete</button>
     </div>
   </div>
 </div>
+
+<modal #deleteModal>
+  <modal-header [show-close]="true">
+    <h4 class="modal-title">Please confirm</h4>
+  </modal-header>
+  <modal-body>
+    Do you really want to delete {{course.name}} course?
+  </modal-body>
+  <modal-footer>
+    <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
+    <button type="button" class="btn btn-primary" (click)="modal.close(); onDelete.emit()">Ok</button>
+  </modal-footer>
+</modal>
