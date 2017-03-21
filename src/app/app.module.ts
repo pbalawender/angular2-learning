@@ -35,6 +35,7 @@ import { AuthorizationService } from './models/authorization.service';
 
 import 'jquery';
 import 'bootstrap';
+import { AuthGuard } from './models/auth.guard';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -68,6 +69,7 @@ type StoreType = {
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,
     APP_PROVIDERS,
+    AuthGuard,
     AuthorizationService
   ]
 })
