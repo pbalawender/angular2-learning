@@ -5,10 +5,10 @@ import { AuthorizationService } from './authorization.service';
 @Injectable()
 export class AuthGuard implements CanActivate {
 
-  constructor(private router: Router) { }
+  constructor(private authorizationService: AuthorizationService, private router: Router) { }
 
   public canActivate(): boolean {
-    if (localStorage.getItem(AuthorizationService.CURRENT_USER_INFO)) {
+    if (this.authorizationService.isAuthenticated()) {
       return true;
     }
     this.router.navigate(['login']);
