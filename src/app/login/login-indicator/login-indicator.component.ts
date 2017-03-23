@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { AuthorizationService } from '../../models/authorization.service';
 import { Router } from '@angular/router';
 
@@ -9,13 +9,14 @@ import { Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginIndicatorComponent {
+  @Input() public userName: any;
 
-  constructor(public authorizationService: AuthorizationService, private router: Router) {
+  constructor(private router: Router, private authService: AuthorizationService) {
 
   }
 
   public handleLogout() {
-    if (this.authorizationService.logout()) {
+    if (this.authService.logout()) {
       this.router.navigate(['login']);
     }
   }
