@@ -36,7 +36,7 @@ export class CourseService {
   }
 
   public findCourses(search: string): Course[] {
-    console.log(`New filter: ${search}`);
+    // console.log(`New filter: ${search}`);
     if (search && search.length > 0) {
       return this.getCourses().filter((course) =>
         (course.name.toLowerCase().indexOf(search.toLowerCase()) > -1

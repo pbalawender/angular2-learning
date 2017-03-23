@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Router, Event } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
   selector: 'breadcrumb',
   templateUrl: './breadcrumb.component.html',
   styleUrls: ['./breadcrumb.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BreadcrumbComponent {
   private routes: string[] = [];

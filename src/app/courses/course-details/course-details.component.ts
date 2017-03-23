@@ -1,13 +1,15 @@
-import { Component, Input, Output, OnInit, EventEmitter, ViewChild } from '@angular/core';
+import { Component, Input, Output, EventEmitter,
+  ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ModalComponent } from 'ng2-bs3-modal/ng2-bs3-modal';
 import { Course } from '../../models';
 
 @Component({
   selector: 'course-details',
   templateUrl: './course-details.component.html',
-  styleUrls: ['./course-details.component.css']
+  styleUrls: ['./course-details.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CourseDetailsComponent implements OnInit {
+export class CourseDetailsComponent {
   @Input() public course: Course;
   @Output() public onEdit = new EventEmitter();
   @Output() public onDelete = new EventEmitter();
@@ -25,9 +27,4 @@ export class CourseDetailsComponent implements OnInit {
       this.modal.open();
     }
   }
-
-  public ngOnInit() {
-    // now it is not empty
-  }
-
 }

@@ -2,11 +2,13 @@
  * Angular 2 decorators and services
  */
 import {
-  Component,
+  ChangeDetectionStrategy,
+  Component, NgZone,
   OnInit,
   ViewEncapsulation
 } from '@angular/core';
 import { AppState } from './app.service';
+import { ProfilingService } from './models/profiling.service';
 
 /*
  * App Component
@@ -15,30 +17,16 @@ import { AppState } from './app.service';
 @Component({
   selector: 'app',
   encapsulation: ViewEncapsulation.None,
-  styleUrls: [
-    './app.component.css'
-  ],
-  templateUrl: './app.component.html'
+  styleUrls: ['./app.component.css'],
+  templateUrl: './app.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   public angularclassLogo = 'assets/img/angularclass-avatar.png';
   public name = 'Angular 2 Webpack Starter';
   public url = 'https://twitter.com/AngularClass';
 
-  constructor(
-    public appState: AppState
-  ) {}
-
-  public ngOnInit() {
-    console.log('Initial App State', this.appState.state);
+  constructor (public appState: AppState, private profilingService: ProfilingService) {
+    // not empty anymore
   }
-
 }
-
-/*
- * Please review the https://github.com/AngularClass/angular2-examples/ repo for
- * more angular app examples that you may copy/paste
- * (The examples may not be updated as quickly. Please open an issue on github for us to update it)
- * For help or questions please contact us at @AngularClass on twitter
- * or our chat on Slack at https://AngularClass.com/slack-join
- */

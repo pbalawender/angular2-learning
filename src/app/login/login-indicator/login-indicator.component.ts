@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AuthorizationService } from '../../models/authorization.service';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'login-indicator',
   templateUrl: './login-indicator.component.html',
-  styleUrls: ['./login-indicator.component.css']
+  styleUrls: ['./login-indicator.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginIndicatorComponent {
 
