@@ -7,10 +7,10 @@
       <h2 class="primary-color">Angular learning</h2>
     </div>
     <!--<div class="col-md-6" *ngauthServicevice.isAuthenticated()">-->
-    <div class="col-md-6" *ngIf="userInfo.name">
+    <div class="col-md-6" *ngIf="userInfo">
       <login-indicator class="pull-right" [userName]="userInfo.name || ''"></login-indicator>
     </div>
-    <div class="col-md-12" *ngIf="userInfo.name">
+    <div class="col-md-12" *ngIf="userInfo">
       <breadcrumb></breadcrumb>
     </div>
   </div>

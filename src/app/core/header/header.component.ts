@@ -8,11 +8,11 @@ import { AuthorizationService } from '../../models/authorization.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent {
-  public userInfo = {};
+  public userInfo = null;
 
   constructor(public authService: AuthorizationService, private changeDetector: ChangeDetectorRef) {
     authService.userInfo.subscribe((user) => {
-      console.log(user);
+      // console.log(user);
       this.userInfo = user;
       this.changeDetector.markForCheck();
     });

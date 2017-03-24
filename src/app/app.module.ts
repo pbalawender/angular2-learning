@@ -37,6 +37,7 @@ import 'jquery';
 import 'bootstrap';
 import { AuthGuard } from './models/auth.guard';
 import { ProfilingService } from './models/profiling.service';
+import { LoaderService } from './models/loader.service';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -72,7 +73,8 @@ type StoreType = {
     APP_PROVIDERS,
     AuthGuard,
     AuthorizationService,
-    ProfilingService
+    ProfilingService,
+    LoaderService
   ]
 })
 export class AppModule {

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AuthorizationService } from '../models/authorization.service';
 import { Router } from '@angular/router';
+import { LoaderService } from '../models/loader.service';
 
 @Component({
   selector: 'login',
@@ -14,7 +15,8 @@ export class LoginComponent implements OnInit {
   public user: string;
   public password: string;
 
-  constructor(private authorizationService: AuthorizationService, private router: Router) {
+  constructor(private authorizationService: AuthorizationService, private router: Router,
+              private loaderService: LoaderService) {
 
   }
 
@@ -23,6 +25,7 @@ export class LoginComponent implements OnInit {
   }
 
   public handleLogin() {
+    this.loaderService.showLoader();
     let pass = this.password;
     this.password = '';
     if (this.authorizationService.login(this.user, pass)) {
@@ -31,5 +34,7 @@ export class LoginComponent implements OnInit {
     } else {
       this.errorMsg = 'Invalid username or password';
     }
+    // fake timeout
+    setTimeout(() => this.loaderService.hideLoader(), 500);
   }
 }
