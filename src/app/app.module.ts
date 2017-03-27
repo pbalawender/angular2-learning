@@ -5,15 +5,8 @@ import {
   NgModule,
   ApplicationRef
 } from '@angular/core';
-import {
-  removeNgStyles,
-  createNewHosts,
-  createInputTransfer
-} from '@angularclass/hmr';
-import {
-  RouterModule,
-  PreloadAllModules
-} from '@angular/router';
+import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
+import { RouterModule, PreloadAllModules } from '@angular/router';
 
 /*
  * Platform and Environment providers/directives/pipes
@@ -51,9 +44,6 @@ type StoreType = {
   disposeOldHosts: () => void
 };
 
-/**
- * `AppModule` is the main entry point into Angular2's bootstraping process
- */
 @NgModule({
   bootstrap: [ AppComponent ],
   declarations: [

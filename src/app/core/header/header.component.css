@@ -1,7 +1,11 @@
-.large {
-  font-size: 50px;
+.header-title {
+  font-size: 32px;
+}
+.header-title:hover, .header-title:focus {
+  text-decoration: none;
 }
 
-.red {
-  color: crimson;
+.header-title-icon {
+  padding: 10px;
+  border-radius: 10px;
 }

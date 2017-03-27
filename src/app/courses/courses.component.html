@@ -2,14 +2,14 @@
   <div class="row row-with-extra-space">
     <div class="col-md-6">
       <div class="input-group">
-        <input #searchInput type="text" class="form-control" placeholder="Search for..." (keyup)="filterCourses($event.target.value)">
+        <input #searchInput type="text" class="form-control" placeholder="Find course" (keyup)="filterCourses($event.target.value)">
         <span class="input-group-btn">
-        <button class="btn btn-default primary-bg-color" type="button" (click)="filterCourses(searchInput.value)">Go!</button>
+        <button class="btn btn-default primary-bg-color" type="button" (click)="filterCourses(searchInput.value)">Search</button>
       </span>
       </div>
     </div>
     <div class="col-md-6">
-      <button class="primary-bg-color btn btn-default pull-right">
+      <button class="btn btn-success pull-right">
         <i class="glyphicon glyphicon-plus"></i>
         Add Course
       </button>

@@ -7,7 +7,4 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FooterComponent {
-  constructor() {
-    console.log('Footer');
-  }
 }

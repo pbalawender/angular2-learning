@@ -10,10 +10,9 @@ import { LoaderService } from '../../models/loader.service';
 export class LoaderComponent {
   public show = false;
   constructor(private loaderService: LoaderService, private changeDetector: ChangeDetectorRef) {
-    console.log('Loader');
     this.loaderService.show.subscribe((newShow) => {
       this.show = newShow;
-      changeDetector.markForCheck();
+      this.changeDetector.markForCheck();
     });
   }
 }

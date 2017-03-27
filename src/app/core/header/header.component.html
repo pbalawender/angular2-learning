@@ -1,15 +1,18 @@
 <header>
   <div class="row row-with-extra-space">
-    <div class="col-md-1">
-      <a href="#"><i class="large primary-color glyphicon glyphicon-book"></i></a>
+    <div class="col-md-6">
+      <a href="#" class="primary-color header-title">
+        <span>
+          <i class="primary-bg-color glyphicon glyphicon-book header-title-icon"></i>
+          Angular learning
+        </span>
+      </a>
     </div>
-    <div class="col-md-5">
-      <h2 class="primary-color">Angular learning</h2>
-    </div>
-    <!--<div class="col-md-6" *ngauthServicevice.isAuthenticated()">-->
     <div class="col-md-6" *ngIf="userInfo">
       <login-indicator class="pull-right" [userName]="userInfo.name || ''"></login-indicator>
     </div>
+  </div>
+  <div class="row row-with-extra-space">
     <div class="col-md-12" *ngIf="userInfo">
       <breadcrumb></breadcrumb>
     </div>
