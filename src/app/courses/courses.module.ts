@@ -9,6 +9,7 @@ import { CoursesComponent } from './courses.component';
 import { CourseDetailsComponent } from './course-details';
 
 import { CourseService } from '../models/';
+import { CourseCategoryDirective } from './shared/course-category.directive';
 
 @NgModule({
   bootstrap: [
@@ -16,7 +17,8 @@ import { CourseService } from '../models/';
   ],
   declarations: [
     CoursesComponent,
-    CourseDetailsComponent
+    CourseDetailsComponent,
+    CourseCategoryDirective
   ],
   imports: [
     CommonModule,

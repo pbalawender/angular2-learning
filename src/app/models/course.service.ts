@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Course } from './course.model';
+import moment from 'moment';
 
 @Injectable()
 export class CourseService {
@@ -8,10 +9,14 @@ export class CourseService {
   constructor() {
     this.courses = {};
 
-    for (let i = 1; i <= 3; i++) {
-      let course = new Course(`Course #${i}`, i * 60, new Date(), 'Lorem ipsum...');
-      this.courses[course.id] = course;
-    }
+    let course1 = new Course('Course #1', 60, moment().add(-7, 'days').toDate(), 'Lorem ipsum...');
+    this.courses[course1.id] = course1;
+
+    let course2 = new Course('Course #2', 60, moment().add(7, 'days').toDate(), 'Lorem ipsum...');
+    this.courses[course2.id] = course2;
+
+    let course3 = new Course('Course #3', 60, moment().add(-16, 'days').toDate(), 'Lorem ipsum...');
+    this.courses[course3.id] = course3;
   }
 
   public getCourses(): Course[] {
