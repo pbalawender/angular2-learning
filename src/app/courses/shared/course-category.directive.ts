@@ -15,15 +15,15 @@ export class CourseCategoryDirective implements OnInit {
     const now = moment();
     const courseDate = moment(this.course.date);
     if (courseDate > now) {
-      this.setBorder('blue');
+      this.setBorder('#67BCDB');
     } else if (courseDate < now && Math.abs(courseDate.diff(now, 'days')) <= 14) {
-      this.setBorder('green');
+      this.setBorder('#A2AB58');
     }
   }
 
   private setBorder(color: string) {
     if (color) {
-      this.element.nativeElement.parentNode.style.border = `1px solid ${color}`;
+      this.element.nativeElement.parentNode.style.border = `2px solid ${color}`;
     }
   }
 }

@@ -6,7 +6,8 @@ export class Course {
   constructor(public name: string,
               public duration: number,
               public date: Date,
-              public description: string) {
+              public description: string,
+              public topRated: boolean = false) {
     this.id = uuid();
   }
 }

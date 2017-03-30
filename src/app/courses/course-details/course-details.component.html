@@ -1,8 +1,9 @@
 <div class="row">
   <div class="col-md-10">
-    <span>{{course?.name}}</span>
-    <span class="badge extra-space-on-left">{{course.duration}}&nbsp;min</span>
-    <span class="extra-space-on-left pull-right">{{course.date | date}}</span>
+    <i class="glyphicon glyphicon-star goldy large" *ngIf="course.topRated"></i>
+    <span class="large">{{course?.name | uppercase}}</span>
+    <span class="badge extra-space-on-left pull-top large">{{course.duration | myDuration}}</span>
+    <span class="extra-space-on-left pull-right large">{{course.date | date}}</span>
     <div>{{course?.description}}</div>
   </div>
   <div class="col-md-2">

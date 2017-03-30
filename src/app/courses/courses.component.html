@@ -18,7 +18,7 @@
   <div class="row">
     <div class="col-md-12">
       <ol class="list-group" *ngIf="courses.length > 0">
-        <li class="list-group-item" *ngFor="let course of courses">
+        <li class="list-group-item extra-space-on-bottom" *ngFor="let course of courses" [ngClass]="{highlight: course.topRated}">
           <course-details courseCategory [course]="course" (onDelete)="handleCourseDelete(course)" (onEdit)="handleCourseEdit(course)" ></course-details>
         </li>
       </ol>
