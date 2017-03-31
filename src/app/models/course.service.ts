@@ -19,7 +19,7 @@ export class CourseService {
       'Proin sapien odio, malesuada in faucibus tempus, aliquam nec turpis.', true);
     this.courses[course1.id] = course1;
 
-    let course2 = new Course('Course #2', 60, moment().add(7, 'days').toDate(),
+    let course2 = new Course('Course #2', 90, moment().add(7, 'days').toDate(),
       'Quisque consectetur neque sed nunc auctor consectetur. ' +
       'Duis non mollis purus, vel fermentum nunc. ' +
       'Nulla ut euismod nunc. Curabitur eu ex viverra, dapibus mauris quis, placerat nisi. ' +
@@ -30,7 +30,7 @@ export class CourseService {
       'magna ac consectetur. Donec rhoncus sed nibh ut rutrum.');
     this.courses[course2.id] = course2;
 
-    let course3 = new Course('Course #3', 90, moment().add(-16, 'days').toDate(),
+    let course3 = new Course('Course #3', 60, moment().add(-16, 'days').toDate(),
       'Vestibulum sed lectus non velit interdum venenatis. ' +
       'Sed vel quam vel nisl laoreet suscipit vel rutrum risus. ' +
       'Vivamus nec efficitur neque. Ut rhoncus dolor eu fringilla porta. ' +
@@ -44,8 +44,10 @@ export class CourseService {
     this.courses[course3.id] = course3;
   }
 
-  public getCourses(): Course[] {
-    return Object.keys(this.courses).map((id) => this.courses[id]);
+  public getCourses(sortBy: string = 'date'): Course[] {
+    return Object.keys(this.courses).map((id) => this.courses[id]).sort((a, b) => {
+      return a[sortBy] - b[sortBy];
+    });
   }
 
   public getCourse(id: string) {

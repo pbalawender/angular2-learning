@@ -4,14 +4,17 @@
       <div class="input-group">
         <input #searchInput type="text" class="form-control" placeholder="Find course" (keyup)="filterCourses($event.target.value)">
         <span class="input-group-btn">
-        <button class="btn btn-default primary-bg-color" type="button" (click)="filterCourses(searchInput.value)">Search</button>
+        <button class="btn btn-default primary-bg-color" type="button" (click)="filterCourses(searchInput.value)">
+          <i class="glyphicon glyphicon-search"></i>
+          <span>&nbsp;Search</span>
+        </button>
       </span>
       </div>
     </div>
     <div class="col-md-6">
       <button class="btn btn-success pull-right">
         <i class="glyphicon glyphicon-plus"></i>
-        Add Course
+        <span>&nbsp;Add Course</span>
       </button>
     </div>
   </div>
