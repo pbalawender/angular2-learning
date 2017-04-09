@@ -11,18 +11,30 @@ import { LoaderService } from '../models/loader.service';
 export class CoursesComponent implements OnInit {
 
   public courses: Course[];
+  private allCourses: Course[];
 
   constructor(private courseService: CourseService, private loaderService: LoaderService,
               private changeDetector: ChangeDetectorRef) {
-    this.courses = this.courseService.getCourses();
+    // this.courses = this.courseService.getCourses();
+    this.courseService.actualCourses.subscribe((actualCourses: Course[]) => {
+      console.log('new courses: ' + JSON.stringify(actualCourses.map((course) => course.name)));
+      this.courses = actualCourses;
+      this.allCourses = actualCourses;
+    });
   }
 
   public ngOnInit() {
     // console.log('hello `Courses` component');
   }
 
-  public filterCourses(text) {
-    this.courses = this.courseService.findCourses(text);
+  public filterCourses(search) {
+    if (search && search.length > 0) {
+      this.courses = this.allCourses.filter((course) =>
+        (course.name.toLowerCase().indexOf(search.toLowerCase()) > -1
+        || course.description.toLowerCase().indexOf(search.toLowerCase()) > -1));
+    } else {
+      this.courses = this.allCourses;
+    }
   }
 
   public handleCourseDelete(course: Course) {
@@ -30,7 +42,7 @@ export class CoursesComponent implements OnInit {
     this.loaderService.showLoader();
     // fake timeout
     setTimeout(() => {
-      this.courses = this.courseService.deleteCourse(course);
+      this.courseService.deleteCourse(course);
       this.loaderService.hideLoader();
       this.changeDetector.markForCheck();
     }, 1000);
@@ -39,7 +51,7 @@ export class CoursesComponent implements OnInit {
 
   public handleCourseEdit(course: Course) {
     console.log(`Trying to edit course ${course.id}`);
-    this.courses = this.courseService.editCourse(course);
+    this.courseService.editCourse(course);
   }
 
 }

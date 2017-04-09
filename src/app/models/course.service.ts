@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Course } from './course.model';
 import moment from 'moment';
+import { Observable, BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class CourseService {
+  public actualCourses: Observable<Course[]>;
+  private actualCoursesSubject: BehaviorSubject<Course[]>;
   private courses: any;
 
   constructor() {
@@ -42,6 +45,8 @@ export class CourseService {
       'Vivamus porttitor sed tortor a dignissim. ' +
       'Curabitur vel turpis dignissim, ultrices ante sed, dignissim orci.');
     this.courses[course3.id] = course3;
+    this.actualCoursesSubject = new BehaviorSubject(this.getCourses());
+    this.actualCourses = this.actualCoursesSubject.asObservable();
   }
 
   public getCourses(sortBy: string = 'date'): Course[] {
@@ -58,13 +63,13 @@ export class CourseService {
     // to implement
   }
 
-  public deleteCourse(course: Course): Course[] {
+  public deleteCourse(course: Course) {
     delete this.courses[course.id];
-    return this.getCourses();
+    this.actualCoursesSubject.next(this.getCourses());
   }
 
-  public editCourse(course: Course): Course[] {
-    return this.getCourses();
+  public editCourse(course: Course) {
+    this.actualCoursesSubject.next(this.getCourses());
   }
 
   public findCourses(search: string): Course[] {
