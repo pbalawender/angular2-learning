@@ -11,6 +11,7 @@ import { CourseDetailsComponent } from './course-details';
 import { CourseService } from '../models/';
 import { CourseCategoryDirective } from './shared/course-category.directive';
 import { DurationPipe } from './shared/duration.pipe';
+import { CourseEditComponent } from './course-edit/course-edit.component';
 
 @NgModule({
   bootstrap: [
@@ -19,6 +20,7 @@ import { DurationPipe } from './shared/duration.pipe';
   declarations: [
     CoursesComponent,
     CourseDetailsComponent,
+    CourseEditComponent,
     CourseCategoryDirective,
     DurationPipe
   ],

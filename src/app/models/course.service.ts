@@ -33,7 +33,7 @@ export class CourseService {
       'magna ac consectetur. Donec rhoncus sed nibh ut rutrum.');
     this.courses[course2.id] = course2;
 
-    let course3 = new Course('Course #3', 60, moment().add(-16, 'days').toDate(),
+    let course3 = new Course('Course #3', 60, moment().add(-15, 'days').toDate(),
       'Vestibulum sed lectus non velit interdum venenatis. ' +
       'Sed vel quam vel nisl laoreet suscipit vel rutrum risus. ' +
       'Vivamus nec efficitur neque. Ut rhoncus dolor eu fringilla porta. ' +
@@ -50,13 +50,15 @@ export class CourseService {
   }
 
   public getCourses(sortBy: string = 'date'): Course[] {
-    return Object.keys(this.courses).map((id) => this.courses[id]).sort((a, b) => {
-      return a[sortBy] - b[sortBy];
-    });
+    return Object.keys(this.courses)
+      .map((id) => this.courses[id])
+      .filter((course) => moment(course.date).diff(moment(), 'days') > -14)
+      .sort((a, b) => a[sortBy] - b[sortBy]);
   }
 
-  public getCourse(id: string) {
-    return this.courses[id];
+  public getCourse(id: string): Observable<Course> {
+    console.log(`get course ${JSON.stringify(this.courses[id])}`);
+    return Observable.from(this.courses[id]);
   }
 
   public addCourse(course: Course): void {

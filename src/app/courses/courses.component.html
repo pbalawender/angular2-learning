@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="col-md-6">
-      <button class="btn btn-success pull-right">
+      <button class="btn btn-success pull-right" routerLink="add">
         <i class="glyphicon glyphicon-plus"></i>
         <span>&nbsp;Add Course</span>
       </button>
@@ -25,7 +25,7 @@
           <course-details courseCategory [course]="course" (onDelete)="handleCourseDelete(course)" (onEdit)="handleCourseEdit(course)" ></course-details>
         </li>
       </ol>
-      <pre>{{courses | json}}</pre>
+      <!--<pre>{{courses | json}}</pre>-->
       <p *ngIf="courses.length === 0" class="alert alert-info" role="alert">Nothing to show a this moment. Please add new course or come back later.</p>
       <router-outlet></router-outlet>
     </div>
