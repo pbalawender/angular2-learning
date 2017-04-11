@@ -11,7 +11,7 @@ export class CourseService {
 
   constructor() {
     this.courses = {};
-
+    console.log('courses service construtor');
     let course1 = new Course('Course #1', 30, moment().add(-7, 'days').toDate(),
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. ' +
       'Pellentesque condimentum leo consectetur sagittis eleifend. ' +
@@ -57,8 +57,8 @@ export class CourseService {
   }
 
   public getCourse(id: string): Observable<Course> {
-    console.log(`get course ${JSON.stringify(this.courses[id])}`);
-    return Observable.from(this.courses[id]);
+    console.log(`get course ${id} -> ${JSON.stringify(this.courses[id])}`);
+    return Observable.from([this.courses[id]]);
   }
 
   public addCourse(course: Course): void {

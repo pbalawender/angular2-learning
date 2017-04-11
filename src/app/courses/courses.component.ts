@@ -20,7 +20,8 @@ export class CoursesComponent implements OnDestroy {
               private changeDetector: ChangeDetectorRef, private router: Router) {
     // this.courses = this.courseService.getCourses();
     this.coursesSub = this.courseService.actualCourses.subscribe((actualCourses: Course[]) => {
-      console.log('new courses: ' + JSON.stringify(actualCourses.map((course) => course.id + '-' + course.name)));
+      console.log('new courses: ' +
+        JSON.stringify(actualCourses.map((course) => course.id + '-' + course.name)));
       this.courses = actualCourses;
       this.allCourses = actualCourses;
     });

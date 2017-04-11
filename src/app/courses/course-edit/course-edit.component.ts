@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CourseService } from '../../models/course.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Course } from '../../models/course.model';
-import { Observable } from 'rxjs';
 
 @Component({
   selector: 'course-edit',
@@ -17,8 +16,9 @@ export class CourseEditComponent {
   constructor(private route: ActivatedRoute, private courseService: CourseService) {
     this.route.params
       .switchMap((params: Params) => {
-      if (params['id']) {
-        return this.courseService.getCourse(params['id']);
+      const courseId = `${params['id']}`;
+      if (courseId) {
+        return this.courseService.getCourse(courseId);
       }
       return null;
     }).subscribe((course: Course) => {

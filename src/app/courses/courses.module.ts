@@ -31,7 +31,6 @@ import { CourseEditComponent } from './course-edit/course-edit.component';
     RouterModule.forChild(routes)
   ],
   providers: [
-    CourseService
   ]
 })
 export class CoursesModule {
