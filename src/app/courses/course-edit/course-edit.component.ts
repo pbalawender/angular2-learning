@@ -11,7 +11,7 @@ import { Course } from '../../models/course.model';
 })
 export class CourseEditComponent {
 
-  public course: Course;
+  public course = new Course('', 0, new Date(), '');
 
   constructor(private route: ActivatedRoute, private courseService: CourseService) {
     this.route.params
@@ -23,7 +23,9 @@ export class CourseEditComponent {
       return null;
     }).subscribe((course: Course) => {
         console.log('course: ' + JSON.stringify(course));
-        this.course = course;
+        if (course) {
+          this.course = course;
+        }
       });
   }
 }

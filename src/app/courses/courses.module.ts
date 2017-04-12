@@ -8,7 +8,6 @@ import { routes } from './courses.routes';
 import { CoursesComponent } from './courses.component';
 import { CourseDetailsComponent } from './course-details';
 
-import { CourseService } from '../models/';
 import { CourseCategoryDirective } from './shared/course-category.directive';
 import { DurationPipe } from './shared/duration.pipe';
 import { CourseEditComponent } from './course-edit/course-edit.component';
