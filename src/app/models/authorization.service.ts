@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { Http } from '@angular/http';
 
 @Injectable()
 export class AuthorizationService {
@@ -7,22 +8,26 @@ export class AuthorizationService {
   public userInfo: Observable<any>;
   private _userInfo: BehaviorSubject<any>;
 
-  constructor() {
+  constructor(private http: Http) {
     this._userInfo = new BehaviorSubject(this.getUserInfo());
     this.userInfo = this._userInfo.asObservable();
   }
 
-  public login(user: string, password: string): boolean {
-    const validCredentials =  user === 'admin' && password === 'admin';
-    if (validCredentials) {
-      let userInfo = {
-        name: 'John Doe',
-        token: Math.random().toString(36).substr(2)
-      };
-      this._userInfo.next(userInfo);
-      localStorage.setItem(AuthorizationService.CURRENT_USER_INFO, JSON.stringify(userInfo));
-    }
-    return validCredentials;
+  public login(user: string, password: string): Observable<boolean> {
+    const subject = new Subject<boolean>();
+    const credentials = {
+      login: user,
+      password
+    };
+    this.http.post('http://localhost:3004/auth/login', credentials).subscribe((token) => {
+      localStorage.setItem(AuthorizationService.CURRENT_USER_INFO, JSON.stringify(token));
+      subject.next(true);
+    }, (err) => {
+      console.log(err);
+      subject.next(false);
+    });
+
+    return subject.asObservable();
   }
 
   public logout(): boolean {

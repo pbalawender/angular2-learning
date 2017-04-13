@@ -28,13 +28,14 @@ export class LoginComponent implements OnInit {
     this.loaderService.showLoader();
     let pass = this.password;
     this.password = '';
-    if (this.authorizationService.login(this.user, pass)) {
-      this.errorMsg = null;
-      this.router.navigate(['']);
-    } else {
-      this.errorMsg = 'Invalid username or password';
-    }
-    // fake timeout
-    setTimeout(() => this.loaderService.hideLoader(), 500);
+    this.authorizationService.login(this.user, pass).subscribe((result) => {
+      if (result) {
+        this.errorMsg = null;
+        this.router.navigate(['']);
+      } else {
+        this.errorMsg = 'Invalid username or password';
+      }
+      this.loaderService.hideLoader();
+    });
   }
 }
