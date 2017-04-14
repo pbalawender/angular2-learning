@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { Http, HttpModule } from '@angular/http';
 import {
   NgModule,
   ApplicationRef
@@ -32,6 +32,8 @@ import { AuthGuard } from './models/auth.guard';
 import { ProfilingService } from './models/profiling.service';
 import { LoaderService } from './models/loader.service';
 import { CourseService } from './models/course.service';
+// import { RequestOptions } from 'http';
+import { AuthorizedHttpService } from './models/authorized.http.service';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -66,8 +68,9 @@ type StoreType = {
     AuthorizationService,
     ProfilingService,
     LoaderService,
-    CourseService
-  ]
+    CourseService,
+    { provide: Http, useClass: AuthorizedHttpService }
+  ],
 })
 export class AppModule {
 

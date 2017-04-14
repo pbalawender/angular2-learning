@@ -14,6 +14,6 @@ export class LoaderService {
     this._show.next(true);
   }
   public hideLoader() {
-    this._show.next(false);
+    setTimeout(() => this._show.next(false), 500);
   }
 }

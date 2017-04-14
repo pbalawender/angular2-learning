@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
   }
 
   public ngOnInit() {
-    console.log('hello from login component');
+    // empty
   }
 
   public handleLogin() {
