@@ -20,13 +20,13 @@
   </div>
   <div class="row">
     <div class="col-md-12">
-      <ol class="list-group" *ngIf="courses.length > 0">
-        <li class="list-group-item extra-space-on-bottom" *ngFor="let course of courses" [ngClass]="{highlight: course.topRated}">
+      <ol class="list-group" *ngIf="(courses | async)?.length > 0">
+        <li class="list-group-item extra-space-on-bottom" *ngFor="let course of courses | async" [ngClass]="{highlight: course.topRated}">
           <course-details courseCategory [course]="course" (onDelete)="handleCourseDelete(course)" (onEdit)="handleCourseEdit(course)" ></course-details>
         </li>
       </ol>
       <!--<pre>{{courses | json}}</pre>-->
-      <p *ngIf="courses.length === 0" class="alert alert-info" role="alert">Nothing to show a this moment. Please add new course or come back later.</p>
+      <p *ngIf="(courses | async)?.length === 0" class="alert alert-info" role="alert">Nothing to show a this moment. Please add new course or come back later.</p>
       <router-outlet></router-outlet>
     </div>
   </div>

@@ -14,10 +14,10 @@ export class AuthorizationService implements OnDestroy {
     this.userInfo = this._userInfo.asObservable();
   }
 
-  public login(user: string, password: string): Observable<boolean> {
+  public login(login: string, password: string): Observable<boolean> {
     const subject = new Subject<boolean>();
     const credentials = {
-      login: user,
+      login,
       password
     };
     this.http.post('http://localhost:3004/auth/login', credentials).map((response) => {
