@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef,
+  Component, OnDestroy, OnInit } from '@angular/core';
 import { Course, CourseService } from '../models';
 import { LoaderService } from '../models/loader.service';
 import { Observable } from 'rxjs';
@@ -10,21 +11,35 @@ import { Router } from '@angular/router';
   styleUrls: ['./courses.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CoursesComponent implements OnDestroy {
+export class CoursesComponent implements OnInit, OnDestroy {
 
   public courses: Observable<any>;
+  public pageSize = 10;
+  public page = 1;
+  public total: number;
 
   // private coursesSub: Subscription;
 
   constructor(private courseService: CourseService, private loaderService: LoaderService,
               private changeDetector: ChangeDetectorRef, private router: Router) {
-    // this.courses = this.courseService.getCourses();
-    this.courses = this.courseService.actualCourses;
-    this.courses.subscribe(console.log);
+  }
+
+  public ngOnInit() {
+    this.handlePageChanged(1);
   }
 
   public ngOnDestroy() {
     // this.coursesSub.unsubscribe();
+  }
+
+  public handlePageChanged(page: number) {
+    this.loaderService.showLoader();
+    this.page = page;
+    this.courses = this.courseService.getCourses(this.page, this.pageSize).map((response) => {
+      this.total = response.total;
+      this.loaderService.hideLoader();
+      return response.courses;
+    });
   }
 
   public filterCourses(search) {

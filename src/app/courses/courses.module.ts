@@ -11,6 +11,7 @@ import { CourseDetailsComponent } from './course-details';
 import { CourseCategoryDirective } from './shared/course-category.directive';
 import { DurationPipe } from './shared/duration.pipe';
 import { CourseEditComponent } from './course-edit/course-edit.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   bootstrap: [
@@ -27,6 +28,7 @@ import { CourseEditComponent } from './course-edit/course-edit.component';
     CommonModule,
     FormsModule,
     Ng2Bs3ModalModule,
+    NgxPaginationModule,
     RouterModule.forChild(routes)
   ],
   providers: [

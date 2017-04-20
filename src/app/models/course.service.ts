@@ -1,36 +1,35 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Course } from './course.model';
-import moment from 'moment';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Http, URLSearchParams } from '@angular/http';
 
 @Injectable()
-export class CourseService {
-  public actualCourses: Observable<any>;
-  private actualCoursesSubject: BehaviorSubject<Course[]>;
-  private courses: any;
+export class CourseService implements OnInit {
 
   constructor(private http: Http) {
-    this.courses = {};
-    const search = new URLSearchParams();
-    search.append('start', `0`);
-    search.append('count', `10`);
+  }
 
-    this.actualCourses = this.http.get('http://localhost:3004/courses', {search}).map((response) => {
-      return response.json();
+  public ngOnInit() {
+    // empty
+  }
+
+  public getCourses(page: number, pageSize: number, sortBy: string = 'date'): Observable<any> {
+    const search = new URLSearchParams();
+    search.append('start', '' + (page - 1) * pageSize);
+    search.append('count', '' + pageSize);
+
+    return this.http.get('http://localhost:3004/courses', {search})
+    .map((response) => {
+      const data = response.json();
+      data.courses = data.courses.map((rawCourse) => this.mapCourse(rawCourse));
+      return data;
     });
   }
 
-  public getCourses(sortBy: string = 'date'): Course[] {
-    return Object.keys(this.courses)
-      .map((id) => this.courses[id])
-      .filter((course) => moment(course.date).diff(moment(), 'days') > -14)
-      .sort((a, b) => a[sortBy] - b[sortBy]);
-  }
-
   public getCourse(id: string): Observable<Course> {
-    console.log(`get course ${id} -> ${JSON.stringify(this.courses[id])}`);
-    return Observable.from([this.courses[id]]);
+    return this.http.get(`http://localhost:3004/courses/${id}`).map((response) => {
+      return this.mapCourse(response.json());
+    });
   }
 
   public addCourse(course: Course): void {
@@ -38,23 +37,31 @@ export class CourseService {
   }
 
   public deleteCourse(course: Course) {
-    delete this.courses[course.id];
-    this.actualCoursesSubject.next(this.getCourses());
+    // delete this.courses[course.id];
+    // this.actualCoursesSubject.next([]);
   }
 
   public editCourse(course: Course) {
-    this.actualCoursesSubject.next(this.getCourses());
+    // this.actualCoursesSubject.next([]);
   }
 
   public findCourses(search: string): Course[] {
     // console.log(`New filter: ${search}`);
     if (search && search.length > 0) {
-      return this.getCourses().filter((course) =>
+      return [].filter((course) =>
         (course.name.toLowerCase().indexOf(search.toLowerCase()) > -1
         || course.description.toLowerCase().indexOf(search.toLowerCase()) > -1));
     } else {
-      return this.getCourses();
+      return [];
     }
   }
 
+  private mapCourse(object: any): Course {
+    return new Course(object.id,
+      object.name,
+      object.length,
+      new Date(Date.parse(object.date)),
+      object.description,
+      object.isTopRated);
+  }
 }

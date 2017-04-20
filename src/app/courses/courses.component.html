@@ -21,10 +21,12 @@
   <div class="row">
     <div class="col-md-12">
       <ol class="list-group" *ngIf="(courses | async)?.length > 0">
-        <li class="list-group-item extra-space-on-bottom" *ngFor="let course of courses | async" [ngClass]="{highlight: course.topRated}">
+        <li class="list-group-item extra-space-on-bottom" *ngFor="let course of courses | async | paginate: { itemsPerPage: pageSize, currentPage: page, totalItems: total }" [ngClass]="{highlight: course.topRated}">
           <course-details courseCategory [course]="course" (onDelete)="handleCourseDelete(course)" (onEdit)="handleCourseEdit(course)" ></course-details>
         </li>
+        <pagination-controls (pageChange)="handlePageChanged($event)"></pagination-controls>
       </ol>
+
       <!--<pre>{{courses | json}}</pre>-->
       <p *ngIf="(courses | async)?.length === 0" class="alert alert-info" role="alert">Nothing to show a this moment. Please add new course or come back later.</p>
       <router-outlet></router-outlet>
