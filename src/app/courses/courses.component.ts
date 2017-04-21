@@ -17,15 +17,14 @@ export class CoursesComponent implements OnInit, OnDestroy {
   public pageSize = 10;
   public page = 1;
   public total: number;
-
-  // private coursesSub: Subscription;
+  public search = '';
 
   constructor(private courseService: CourseService, private loaderService: LoaderService,
               private changeDetector: ChangeDetectorRef, private router: Router) {
   }
 
   public ngOnInit() {
-    this.handlePageChanged(1);
+    this.handlePageChanged(this.page);
   }
 
   public ngOnDestroy() {
@@ -35,39 +34,30 @@ export class CoursesComponent implements OnInit, OnDestroy {
   public handlePageChanged(page: number) {
     this.loaderService.showLoader();
     this.page = page;
-    this.courses = this.courseService.getCourses(this.page, this.pageSize).map((response) => {
+    this.courses = this.courseService.getCourses(this.page, this.pageSize, this.search)
+      .map((response) => {
       this.total = response.total;
       this.loaderService.hideLoader();
       return response.courses;
     });
   }
 
-  public filterCourses(search) {
-    // if (search && search.length > 0) {
-    //   this.courses = this.allCourses.filter((course) =>
-    //     (course.name.toLowerCase().indexOf(search.toLowerCase()) > -1
-    //     || course.description.toLowerCase().indexOf(search.toLowerCase()) > -1));
-    // } else {
-    //   this.courses = this.allCourses;
-    // }
-  }
-
   public handleCourseDelete(course: Course) {
     console.log(`Trying to delete course ${course.id}`);
     this.loaderService.showLoader();
-    // fake timeout
-    setTimeout(() => {
-      this.courseService.deleteCourse(course);
+    this.courseService.deleteCourse(course).subscribe(() => {
       this.loaderService.hideLoader();
+      this.handlePageChanged(1);
       this.changeDetector.markForCheck();
-    }, 1000);
-
+    }, (err) => {
+      console.error(err);
+      this.loaderService.hideLoader();
+    });
   }
 
   public handleCourseEdit(course: Course) {
     console.log(`Trying to edit course ${course.id}`);
     this.router.navigate(['/courses/edit', course.id]);
-    // this.courseService.editCourse(course);
   }
 
 }

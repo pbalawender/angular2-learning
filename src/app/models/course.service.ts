@@ -13,10 +13,15 @@ export class CourseService implements OnInit {
     // empty
   }
 
-  public getCourses(page: number, pageSize: number, sortBy: string = 'date'): Observable<any> {
+  public getCourses(page: number,
+                    pageSize: number,
+                    query: string,
+                    sortBy: string = 'date'): Observable<any> {
     const search = new URLSearchParams();
     search.append('start', '' + (page - 1) * pageSize);
     search.append('count', '' + pageSize);
+    search.append('query', query);
+    search.append('sort', sortBy);
 
     return this.http.get('http://localhost:3004/courses', {search})
     .map((response) => {
@@ -36,24 +41,12 @@ export class CourseService implements OnInit {
     // to implement
   }
 
-  public deleteCourse(course: Course) {
-    // delete this.courses[course.id];
-    // this.actualCoursesSubject.next([]);
+  public deleteCourse(course: Course): Observable<any> {
+    return this.http.delete(`http://localhost:3004/courses/${course.id}`);
   }
 
   public editCourse(course: Course) {
     // this.actualCoursesSubject.next([]);
-  }
-
-  public findCourses(search: string): Course[] {
-    // console.log(`New filter: ${search}`);
-    if (search && search.length > 0) {
-      return [].filter((course) =>
-        (course.name.toLowerCase().indexOf(search.toLowerCase()) > -1
-        || course.description.toLowerCase().indexOf(search.toLowerCase()) > -1));
-    } else {
-      return [];
-    }
   }
 
   private mapCourse(object: any): Course {

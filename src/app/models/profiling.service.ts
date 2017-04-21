@@ -1,21 +1,32 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 @Injectable()
-export class ProfilingService {
+export class ProfilingService implements OnInit, OnDestroy {
   private lastTimeUnstable;
-  constructor(private ngZone: NgZone) {
+  private stableSubscription: Subscription;
+  private unstableSubscription: Subscription;
 
-    this.ngZone.onUnstable.subscribe(() => {
+  constructor(private ngZone: NgZone) {
+  }
+
+  public ngOnInit() {
+    this.unstableSubscription = this.ngZone.onUnstable.subscribe(() => {
       this.lastTimeUnstable = this.getCurrentTime();
     });
 
-    this.ngZone.onStable.subscribe(() => {
-      const currentTime = this.getCurrentTime();
-      if (this.lastTimeUnstable) {
-        console.log(`Stable after ${currentTime - this.lastTimeUnstable}ms.`);
-      }
-      this.lastTimeUnstable = null;
+    this.stableSubscription = this.ngZone.onStable.subscribe(() => {
+      // const currentTime = this.getCurrentTime();
+      // if (this.lastTimeUnstable) {
+        // console.log(`Stable after ${currentTime - this.lastTimeUnstable}ms.`);
+      // }
+      // this.lastTimeUnstable = null;
     });
+  }
+
+  public ngOnDestroy() {
+    this.unstableSubscription.unsubscribe();
+    this.stableSubscription.unsubscribe();
   }
 
   public noop() {
