@@ -2,13 +2,28 @@
   <div class="form-group">
     <label for="name" class="col-sm-2 control-label">Name</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="name" placeholder="Name" [(ngModel)]="course.name" name="name">
+      <input type="text" class="form-control" id="name" placeholder="Name" required maxlength="50" [(ngModel)]="course.name" name="name" #name="ngModel">
+      <div *ngIf="name.errors && (name.dirty || name.touched)"
+           class="alert alert-danger">
+        <div [hidden]="!name.errors.required">
+          Name is required
+        </div>
+        <div [hidden]="!name.errors.minlength">
+          Name must be at least 4 characters long.
+        </div>
+      </div>
     </div>
   </div>
   <div class="form-group">
     <label for="description" class="col-sm-2 control-label">Description</label>
     <div class="col-sm-10">
-      <textarea class="form-control" id="description" placeholder="Description" rows="3" [(ngModel)]="course.description" name="description"></textarea>
+      <textarea class="form-control" id="description" placeholder="Description" rows="3" maxlength="500" [(ngModel)]="course.description" name="description" #description="ngModel"></textarea>
+      <div *ngIf="description.errors && (description.dirty || description.touched)"
+           class="alert alert-danger">
+        <div [hidden]="!description.errors.maxlength">
+          Description cannot be more than 500 characters long.
+        </div>
+      </div>
     </div>
   </div>
   <div class="form-group">
@@ -24,5 +39,5 @@
     </div>
     <div class="col-sm-5 control-label pull-left">{{course.duration  | myDuration}}</div>
   </div>
-  <button type="submit" class="btn btn-success pull-right">Submit</button>
+  <button type="submit" class="btn btn-success pull-right" [disabled]="!courseForm.form.valid">Submit</button>
 </form>
