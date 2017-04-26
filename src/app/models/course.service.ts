@@ -2,6 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { Course } from './course.model';
 import { Observable } from 'rxjs';
 import { Http, URLSearchParams } from '@angular/http';
+import moment from 'moment';
 
 @Injectable()
 export class CourseService implements OnInit {
@@ -46,15 +47,28 @@ export class CourseService implements OnInit {
   }
 
   public editCourse(course: Course) {
-    // this.actualCoursesSubject.next([]);
+    return this.http.put(`http://localhost:3004/courses/${course.id}`, this.remapCourse(course))
+      .map((response) => {
+        return this.mapCourse(response.json());
+      });
   }
 
   private mapCourse(object: any): Course {
     return new Course(object.id,
       object.name,
       object.length,
-      new Date(Date.parse(object.date)),
+      moment(object.date).toDate(),
       object.description,
       object.isTopRated);
+  }
+  private remapCourse(course: Course): any {
+    return {
+      id: course.id,
+      name: course.name,
+      description: course.description,
+      length: course.duration,
+      date: course.date,
+      isTopRated: course.topRated
+    };
   }
 }

@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
 })
 export class CourseEditComponent implements OnInit, OnDestroy {
 
-  public course = new Course(0, '', 0, new Date(), '');
+  public course = new Course(0, '', 0, null, '');
   private subscription: Subscription;
 
   constructor(private route: ActivatedRoute, private courseService: CourseService,
@@ -30,6 +30,17 @@ export class CourseEditComponent implements OnInit, OnDestroy {
         }
         return null;
       }).subscribe((course: Course) => {
+      console.log('course: ' + JSON.stringify(course));
+      if (course) {
+        this.course = course;
+        this.changeDetector.markForCheck();
+      }
+    });
+  }
+
+  public handleSubmit() {
+    console.log('Submit ' + JSON.stringify(this.course));
+    this.courseService.editCourse(this.course).subscribe((course: Course) => {
       console.log('course: ' + JSON.stringify(course));
       if (course) {
         this.course = course;
