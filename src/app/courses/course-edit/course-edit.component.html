@@ -17,9 +17,12 @@
   <div class="form-group">
     <label for="description" class="col-sm-2 control-label">Description</label>
     <div class="col-sm-10">
-      <textarea class="form-control" id="description" placeholder="Description" rows="3" maxlength="500" [(ngModel)]="course.description" name="description" #description="ngModel"></textarea>
+      <textarea class="form-control" id="description" placeholder="Description" rows="3" maxlength="500" required [(ngModel)]="course.description" name="description" #description="ngModel"></textarea>
       <div *ngIf="description.errors && (description.dirty || description.touched)"
            class="alert alert-danger">
+        <div [hidden]="!description.errors.required">
+          Description is required
+        </div>
         <div [hidden]="!description.errors.maxlength">
           Description cannot be more than 500 characters long.
         </div>
@@ -36,6 +39,12 @@
     <label for="duration" class="col-sm-2 control-label">Duration</label>
     <div class="col-sm-5">
       <input type="text" class="form-control" id="duration" placeholder="60" [(ngModel)]="course.duration" name="duration">
+      <div *ngIf="duration.errors && (duration.dirty || duration.touched)"
+           class="alert alert-danger">
+        <div [hidden]="!duration.errors.required">
+          Duration is required
+        </div>
+      </div>
     </div>
     <div class="col-sm-5 control-label pull-left">{{course.duration  | myDuration}}</div>
   </div>
