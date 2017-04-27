@@ -1,5 +1,5 @@
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Component, forwardRef } from '@angular/core';
+import { Component, forwardRef, Input } from '@angular/core';
 import moment from 'moment';
 
 const CUSTOM_DATE_VALUE_ACCESSOR = {
@@ -18,9 +18,9 @@ const noop = (_?: any) => {
   providers: [CUSTOM_DATE_VALUE_ACCESSOR]
 })
 export class DatePickerComponent implements ControlValueAccessor {
-
   public onChange = noop;
   public onTouched = noop;
+  @Input() public required;
   private currentDate: any;
 
   public setValue(item) {
@@ -29,22 +29,31 @@ export class DatePickerComponent implements ControlValueAccessor {
 
   set value(newValue) {
     if (newValue) {
-      this.currentDate = moment(newValue, 'YYYY-MM-DD').toDate();
-      this.onChange(this.currentDate);
+      this.currentDate = moment(newValue, 'YYYY-MM-DD');
+    } else {
+      this.currentDate = null;
     }
+    this.onChange(this.value);
   }
 
   get value() {
-    return this.currentDate;
+    console.log('bazinga');
+    if (this.currentDate && this.currentDate.isValid()) {
+      return this.currentDate.toDate();
+    }
+    return null;
   }
 
   public getStringValue() {
-    return moment(this.currentDate).format('YYYY-MM-DD');
+    if (this.currentDate && this.currentDate.isValid()) {
+      return this.currentDate.format('YYYY-MM-DD');
+    }
+    return '';
   }
 
   public writeValue(dateString: string) {
-    this.currentDate = moment(dateString, 'YYYY-MM-DD').toDate();
-    this.onChange(this.currentDate);
+    this.currentDate = moment(dateString, 'YYYY-MM-DD');
+    this.onChange(this.value);
   }
 
   public registerOnChange(fn: any) {

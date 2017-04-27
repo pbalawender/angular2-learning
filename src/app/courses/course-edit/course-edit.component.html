@@ -29,7 +29,7 @@
   <div class="form-group">
     <label for="date" class="col-sm-2 control-label">Date</label>
     <div class="col-sm-10">
-      <date-picker id="date" [(ngModel)]="course.date" name="date"></date-picker>
+      <date-picker id="date" [required]="true" [(ngModel)]="course.date" name="date"></date-picker>
     </div>
   </div>
   <div class="form-group">
