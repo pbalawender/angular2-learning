@@ -1,3 +1,10 @@
-/**
- * Created by Przemyslaw_Balawende on 27.04.2017.
- */
+import { Component, Input } from '@angular/core';
+import { Author } from '../../../models/author.model';
+@Component({
+  selector: 'authors-select',
+  templateUrl: './authors-select.component.html'
+})
+export class AuthorsSelectComponent {
+  @Input() public authors: Author[];
+
+}

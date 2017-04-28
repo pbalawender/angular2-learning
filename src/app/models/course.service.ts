@@ -3,6 +3,7 @@ import { Course } from './course.model';
 import { Observable } from 'rxjs';
 import { Http, URLSearchParams } from '@angular/http';
 import moment from 'moment';
+import { Author } from './author.model';
 
 @Injectable()
 export class CourseService implements OnInit {
@@ -33,7 +34,6 @@ export class CourseService implements OnInit {
   }
 
   public getCourse(id: string): Observable<Course> {
-    console.log('aaaaaaaaaaa ' + id);
     if (id) {
       return this.http.get(`http://localhost:3004/courses/${id}`).map((response) => {
         return this.mapCourse(response.json());
@@ -57,6 +57,13 @@ export class CourseService implements OnInit {
     return this.http.put(`http://localhost:3004/courses/${course.id}`, this.remapCourse(course))
       .map((response) => {
         return this.mapCourse(response.json());
+      });
+  }
+
+  public getAuthors(): Observable<Author[]> {
+    return this.http.get(`http://localhost:3004/authors`)
+      .map((response) => {
+        return response.json();
       });
   }
 

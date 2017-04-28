@@ -13,6 +13,7 @@ import { DurationPipe } from './shared/duration.pipe';
 import { CourseEditComponent } from './course-edit/course-edit.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { DatePickerComponent } from './shared/date-picker/date-picker.component';
+import { AuthorsSelectComponent } from './shared/authors-select/authors-select.component';
 
 @NgModule({
   bootstrap: [
@@ -24,7 +25,8 @@ import { DatePickerComponent } from './shared/date-picker/date-picker.component'
     CourseEditComponent,
     CourseCategoryDirective,
     DurationPipe,
-    DatePickerComponent
+    DatePickerComponent,
+    AuthorsSelectComponent
   ],
   imports: [
     CommonModule,

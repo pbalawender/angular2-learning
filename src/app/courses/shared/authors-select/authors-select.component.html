@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<ol class="list-group">
+<li class="list-group-item" *ngFor="let author of authors">
+  <label>
+    <input type="checkbox" >&nbsp;{{author.firstName + ' ' + author.lastName}}
+  </label>
+</li>
+</ol>

@@ -3,7 +3,8 @@ import { ChangeDetectionStrategy, Component,
 import { CourseService } from '../../models/course.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Course } from '../../models/course.model';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { Author } from '../../models/author.model';
 
 @Component({
   selector: 'course-edit',
@@ -14,6 +15,7 @@ import { Subscription } from 'rxjs';
 export class CourseEditComponent implements OnInit, OnDestroy {
 
   public course = new Course(0, '', 0, null, '', []);
+  public authors: Observable<Author[]>;
   private isEdit = false;
   private subscription: Subscription;
 
@@ -38,6 +40,7 @@ export class CourseEditComponent implements OnInit, OnDestroy {
         this.changeDetector.markForCheck();
       }
     });
+    this.authors = this.courseService.getAuthors();
   }
 
   public handleSubmit() {
