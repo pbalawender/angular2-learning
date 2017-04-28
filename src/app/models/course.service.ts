@@ -33,20 +33,27 @@ export class CourseService implements OnInit {
   }
 
   public getCourse(id: string): Observable<Course> {
-    return this.http.get(`http://localhost:3004/courses/${id}`).map((response) => {
-      return this.mapCourse(response.json());
-    });
+    console.log('aaaaaaaaaaa ' + id);
+    if (id) {
+      return this.http.get(`http://localhost:3004/courses/${id}`).map((response) => {
+        return this.mapCourse(response.json());
+      });
+    }
+    return null;
   }
 
-  public addCourse(course: Course): void {
-    // to implement
+  public addCourse(course: Course): Observable<Course> {
+    return this.http.post(`http://localhost:3004/courses/`, this.remapCourse(course))
+      .map((response) => {
+        return this.mapCourse(response.json());
+      });
   }
 
   public deleteCourse(course: Course): Observable<any> {
     return this.http.delete(`http://localhost:3004/courses/${course.id}`);
   }
 
-  public editCourse(course: Course) {
+  public editCourse(course: Course): Observable<Course> {
     return this.http.put(`http://localhost:3004/courses/${course.id}`, this.remapCourse(course))
       .map((response) => {
         return this.mapCourse(response.json());
@@ -59,6 +66,7 @@ export class CourseService implements OnInit {
       object.length,
       moment(object.date).toDate(),
       object.description,
+      object.authors,
       object.isTopRated);
   }
   private remapCourse(course: Course): any {
@@ -68,6 +76,7 @@ export class CourseService implements OnInit {
       description: course.description,
       length: course.duration,
       date: course.date,
+      authors: course.authors,
       isTopRated: course.topRated
     };
   }

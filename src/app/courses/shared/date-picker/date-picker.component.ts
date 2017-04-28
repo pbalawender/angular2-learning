@@ -37,7 +37,6 @@ export class DatePickerComponent implements ControlValueAccessor {
   }
 
   get value() {
-    console.log('bazinga');
     if (this.currentDate && this.currentDate.isValid()) {
       return this.currentDate.toDate();
     }
@@ -52,8 +51,11 @@ export class DatePickerComponent implements ControlValueAccessor {
   }
 
   public writeValue(dateString: string) {
-    this.currentDate = moment(dateString, 'YYYY-MM-DD');
-    this.onChange(this.value);
+    if (typeof dateString !== 'undefined'
+      && moment(dateString, 'YYYY-MM-DD') !== this.currentDate) {
+      this.currentDate = moment(dateString, 'YYYY-MM-DD');
+      this.onChange(this.value);
+    }
   }
 
   public registerOnChange(fn: any) {

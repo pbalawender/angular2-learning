@@ -38,7 +38,7 @@
   <div class="form-group">
     <label for="duration" class="col-sm-2 control-label">Duration</label>
     <div class="col-sm-5">
-      <input type="text" class="form-control" id="duration" placeholder="60" [(ngModel)]="course.duration" name="duration">
+      <input type="text" class="form-control" id="duration" placeholder="60" [(ngModel)]="course.duration" name="duration" #duration="ngModel">
       <div *ngIf="duration.errors && (duration.dirty || duration.touched)"
            class="alert alert-danger">
         <div [hidden]="!duration.errors.required">
