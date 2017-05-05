@@ -51,7 +51,7 @@
   <div class="form-group">
     <label class="col-sm-2 control-label">Authors</label>
     <div class="col-sm-10">
-      <authors-select [authors]="authors | async"></authors-select>
+      <authors-select [allAuthors]="authors | async" [selectedAuthors]="course.authors"></authors-select>
     </div>
 
   </div>

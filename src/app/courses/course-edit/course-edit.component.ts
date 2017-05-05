@@ -40,7 +40,7 @@ export class CourseEditComponent implements OnInit, OnDestroy {
         this.changeDetector.markForCheck();
       }
     });
-    this.authors = this.courseService.getAuthors();
+    this.authors = this.courseService.getAllAuthors();
   }
 
   public handleSubmit() {
