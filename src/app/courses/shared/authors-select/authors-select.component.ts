@@ -23,7 +23,7 @@ export class AuthorsSelectComponent implements ControlValueAccessor {
   public onChange = noop;
   public onTouched = noop;
 
-  public authorChanged(event: any, author: Author) {
+  public handleChange(event: any, author: Author) {
     const checked = event.target.checked;
     if (checked) {
       this.selectedAuthors.push(author);
@@ -38,12 +38,11 @@ export class AuthorsSelectComponent implements ControlValueAccessor {
   }
 
   public isAuthorSelected(author: Author): boolean {
-    const isSelected = !!this.selectedAuthors.find((selected) => author.id === selected.id) ;
-    return isSelected;
+    return !!this.selectedAuthors.find((selected) => author.id === selected.id);
   }
 
   public writeValue(author: Author) {
-    console.log(`writeValue ${JSON.stringify(author)}`);
+    // console.log(`writeValue ${JSON.stringify(author)}`);
   }
 
   public registerOnChange(fn: any) {

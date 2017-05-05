@@ -15,7 +15,7 @@ import { Author } from '../../models/author.model';
 export class CourseEditComponent implements OnInit, OnDestroy {
 
   public course = new Course(0, '', 0, null, '', []);
-  public authors: Observable<Author[]>;
+  public allAuthors: Observable<Author[]>;
   private isEdit = false;
   private subscription: Subscription;
 
@@ -40,7 +40,7 @@ export class CourseEditComponent implements OnInit, OnDestroy {
         this.changeDetector.markForCheck();
       }
     });
-    this.authors = this.courseService.getAllAuthors();
+    this.allAuthors = this.courseService.getAllAuthors();
   }
 
   public handleSubmit() {

@@ -1,10 +1,9 @@
 <form class="form-horizontal" name="course" #courseForm="ngForm" (submit)="handleSubmit()">
   <div class="form-group">
-    <label for="name" class="col-sm-2 control-label">Name</label>
+    <label for="name" class="col-sm-2 control-label" [class.red-label]="name.errors && (name.dirty || name.touched)">Name</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="name" placeholder="Name" required maxlength="50" [(ngModel)]="course.name" name="name" #name="ngModel">
-      <div *ngIf="name.errors && (name.dirty || name.touched)"
-           class="alert alert-danger">
+      <input type="text" class="form-control" id="name" placeholder="Name" required minlength="4" [(ngModel)]="course.name" name="name" #name="ngModel" >
+      <div *ngIf="name.errors && (name.dirty || name.touched)" class="alert alert-danger">
         <div [hidden]="!name.errors.required">
           Name is required
         </div>
@@ -15,11 +14,10 @@
     </div>
   </div>
   <div class="form-group">
-    <label for="description" class="col-sm-2 control-label">Description</label>
+    <label for="description" class="col-sm-2 control-label" [class.red-label]="description.errors && (description.dirty || description.touched)">Description</label>
     <div class="col-sm-10">
-      <textarea class="form-control" id="description" placeholder="Description" rows="3" maxlength="500" required [(ngModel)]="course.description" name="description" #description="ngModel"></textarea>
-      <div *ngIf="description.errors && (description.dirty || description.touched)"
-           class="alert alert-danger">
+      <textarea class="form-control" id="description" placeholder="Description" rows="3" maxlength="500" required [(ngModel)]="course.description" name="description" #description="ngModel" ></textarea>
+      <div *ngIf="description.errors && (description.dirty || description.touched)" class="alert alert-danger">
         <div [hidden]="!description.errors.required">
           Description is required
         </div>
@@ -32,30 +30,43 @@
   <div class="form-group">
     <label for="date" class="col-sm-2 control-label">Date</label>
     <div class="col-sm-10">
-      <date-picker id="date" [required]="true" [(ngModel)]="course.date" name="date"></date-picker>
+      <date-picker id="date" required [(ngModel)]="course.date" name="date" #date="ngModel"></date-picker>
+      <div *ngIf="date.errors && (date.dirty || date.touched)"
+           class="alert alert-danger">
+        <div [hidden]="!date.errors.required">
+          Date cannot be empty
+        </div>
+        <div [hidden]="!date.errors.empty">
+          Date should be valid
+        </div>
+      </div>
     </div>
   </div>
   <div class="form-group">
-    <label for="duration" class="col-sm-2 control-label">Duration</label>
+    <label for="duration" class="col-sm-2 control-label" [class.red-label]="duration.errors && (duration.dirty || duration.touched)">Duration</label>
     <div class="col-sm-5">
-      <input type="text" class="form-control" id="duration" placeholder="60" [(ngModel)]="course.duration" name="duration" #duration="ngModel">
-      <div *ngIf="duration.errors && (duration.dirty || duration.touched)"
-           class="alert alert-danger">
+      <input validDuration type="text" class="form-control" id="duration" placeholder="60" required [(ngModel)]="course.duration" name="duration" #duration="ngModel">
+      <div *ngIf="duration.errors && (duration.dirty || duration.touched)" class="alert alert-danger">
         <div [hidden]="!duration.errors.required">
           Duration is required
+        </div>
+        <div [hidden]="!duration.errors.zero">
+          Duration should be grater then 0
         </div>
       </div>
     </div>
     <div class="col-sm-5 control-label pull-left">{{course.duration  | myDuration}}</div>
   </div>
   <div class="form-group">
-    <label class="col-sm-2 control-label">Authors</label>
+    <label class="col-sm-2 control-label" [class.red-label]="authors.errors && (authors.dirty || authors.touched)">Authors</label>
     <div class="col-sm-10">
-      <authors-select [allAuthors]="authors | async" [selectedAuthors]="course.authors"></authors-select>
+      <authors-select notEmptyAuthors [allAuthors]="allAuthors | async" [selectedAuthors]="course.authors" [(ngModel)]="course.authors" #authors="ngModel" name="authors"></authors-select>
+      <div *ngIf="authors.errors && (authors.dirty || authors.touched)" class="alert alert-danger">
+        <div [hidden]="!authors.errors.not-empty-authors">
+          Please select at least one author
+        </div>
+      </div>
     </div>
-
   </div>
   <button type="submit" class="btn btn-success pull-right" [disabled]="!courseForm.form.valid">Submit</button>
 </form>
-
-<pre>{{course | json}}</pre>

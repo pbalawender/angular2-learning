@@ -10,14 +10,14 @@ import { LoaderService } from '../models/loader.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent implements OnInit {
-
   public errorMsg: string;
-  public user: string;
-  public password: string;
+  public user = {
+    login: '',
+    password: ''
+  };
 
   constructor(private authorizationService: AuthorizationService, private router: Router,
               private loaderService: LoaderService) {
-
   }
 
   public ngOnInit() {
@@ -26,9 +26,7 @@ export class LoginComponent implements OnInit {
 
   public handleLogin() {
     this.loaderService.showLoader();
-    let pass = this.password;
-    this.password = '';
-    this.authorizationService.login(this.user, pass).subscribe((result) => {
+    this.authorizationService.login(this.user.login, this.user.password).subscribe((result) => {
       if (result) {
         this.errorMsg = null;
         this.router.navigate(['']);

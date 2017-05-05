@@ -1,5 +1,5 @@
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Component, forwardRef, Input } from '@angular/core';
+import { Component, forwardRef } from '@angular/core';
 import moment from 'moment';
 
 const CUSTOM_DATE_VALUE_ACCESSOR = {
@@ -20,7 +20,6 @@ const noop = (_?: any) => {
 export class DatePickerComponent implements ControlValueAccessor {
   public onChange = noop;
   public onTouched = noop;
-  @Input() public required;
   private currentDate: any;
 
   public setValue(item) {

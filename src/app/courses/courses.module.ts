@@ -14,6 +14,9 @@ import { CourseEditComponent } from './course-edit/course-edit.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { DatePickerComponent } from './shared/date-picker/date-picker.component';
 import { AuthorsSelectComponent } from './shared/authors-select/authors-select.component';
+import { NotEmptyAuthorsDirective } from './shared/validators/not-empty-authors.directive';
+import { ValidDurationDirective } from './shared/validators/valid-duration.directive';
+import { ValidDateDirective } from './shared/validators/valid-date.directive';
 
 @NgModule({
   bootstrap: [
@@ -26,7 +29,10 @@ import { AuthorsSelectComponent } from './shared/authors-select/authors-select.c
     CourseCategoryDirective,
     DurationPipe,
     DatePickerComponent,
-    AuthorsSelectComponent
+    AuthorsSelectComponent,
+    NotEmptyAuthorsDirective,
+    ValidDurationDirective,
+    ValidDateDirective
   ],
   imports: [
     CommonModule,

@@ -1,8 +1,9 @@
 <ol class="list-group" style="height: 200px; overflow-y: auto;">
-<li class="list-group-item" *ngFor="let author of allAuthors">
+<li class="list-group-item" *ngFor="let a of allAuthors">
   <div class="checkbox">
   <label>
-    <input type="checkbox" [attr.checked]="isAuthorSelected(author)? '': null" (change)="authorChanged($event, author)" value="author.id"/> {{author.firstName + ' ' + author.lastName}}
+    <input type="checkbox" [attr.checked]="isAuthorSelected(a)? '': null"
+           (change)="handleChange($event, a)" value="author.id"/> {{a.lastName + ', ' + a.firstName}}
   </label>
   </div>
 </li>
