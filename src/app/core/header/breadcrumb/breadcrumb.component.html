@@ -1,5 +1,5 @@
 <div>
   <ol class="breadcrumb">
-    <li><a href="#/courses">Courses</a></li>
+    <li *ngFor="let route of routes"><a *ngIf="route.link" href="{{route.link}}">{{route.name}}</a><span *ngIf="!route.link">{{route.name}}</span></li>
   </ol>
 </div>

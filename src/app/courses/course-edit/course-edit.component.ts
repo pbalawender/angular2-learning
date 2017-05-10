@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component,
   OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CourseService } from '../../models/course.service';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Course } from '../../models/course.model';
 import { Observable, Subscription } from 'rxjs';
 import { Author } from '../../models/author.model';
@@ -20,8 +20,7 @@ export class CourseEditComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
 
   constructor(private route: ActivatedRoute, private courseService: CourseService,
-              private changeDetector: ChangeDetectorRef) {
-    // empty
+              private changeDetector: ChangeDetectorRef, private router: Router) {
   }
 
   public ngOnInit() {
@@ -33,7 +32,7 @@ export class CourseEditComponent implements OnInit, OnDestroy {
         }
         return [];
       }).subscribe((course: Course) => {
-      console.log('course: ' + JSON.stringify(course));
+      // console.log('course: ' + JSON.stringify(course));
       if (course) {
         this.course = course;
         this.isEdit = true;
@@ -50,11 +49,13 @@ export class CourseEditComponent implements OnInit, OnDestroy {
     action.subscribe((course: Course) => {
       console.log('course: ' + JSON.stringify(course));
       if (course) {
-        this.course = course;
-        this.isEdit = true;
-        this.changeDetector.markForCheck();
+        this.returnToCourseList();
       }
     });
+  }
+
+  public returnToCourseList() {
+    this.router.navigate(['/courses']);
   }
 
   public ngOnDestroy() {

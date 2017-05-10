@@ -1,6 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Router, Event } from '@angular/router';
-import { Observable } from 'rxjs';
+import { ChangeDetectionStrategy, ChangeDetectorRef,
+         Component, OnDestroy, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { Course } from '../../../models/course.model';
+import { CourseService } from '../../../models/course.service';
 
 @Component({
   selector: 'breadcrumb',
@@ -8,17 +11,50 @@ import { Observable } from 'rxjs';
   styleUrls: ['./breadcrumb.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BreadcrumbComponent {
-  private routes: string[] = [];
+export class BreadcrumbComponent implements OnInit, OnDestroy {
+  public routes = [];
+  private routerEventsSubscription: Subscription;
+  private courseSubscription: Subscription;
+  constructor(private router: Router, private courseService: CourseService,
+              private changeDetector: ChangeDetectorRef) {
+  }
 
-  constructor(router: Router) {
-    // const routerState = router.routerState;
-    // console.log('Breadcrumb: ' + routerState);
-    // const routerEvents: Observable<Event> = router.events;
-    // routerEvents.subscribe((value: Event) => {
-    //   console.log(value.toString());
-    // }, (error) => {
-    //   console.error(error);
-    // });
+  public ngOnInit() {
+    this.routerEventsSubscription = this.router.events.filter((event) => {
+      return event instanceof NavigationEnd;
+    }).subscribe((event: NavigationEnd) => {
+      this.routes = [];
+      const urlParts = (event.urlAfterRedirects || event.url).split('/');
+      if (urlParts[1] === 'courses') {
+        this.routes.push({
+          name: 'Courses',
+          link: '#/courses'
+        });
+      }
+      if (urlParts[2] === 'edit') {
+        if (urlParts.length > 3) {
+          this.courseSubscription = this.courseService.getCourse(urlParts[3])
+            .subscribe((course: Course) => {
+            this.routes.push({
+              name: course.name,
+              link: null
+            });
+            this.changeDetector.markForCheck();
+          });
+        }
+      }
+      if (urlParts[2] === 'add') {
+        this.routes.push({
+          name: 'Creating new course',
+          link: null
+        });
+      }
+      this.changeDetector.markForCheck();
+    });
+  }
+
+  public ngOnDestroy() {
+    this.routerEventsSubscription.unsubscribe();
+    this.courseSubscription.unsubscribe();
   }
 }

@@ -68,5 +68,6 @@
       </div>
     </div>
   </div>
-  <button type="submit" class="btn btn-success pull-right" [disabled]="!courseForm.form.valid">Submit</button>
+  <button type="submit" class="btn btn-success pull-right margin-left" [disabled]="!courseForm.form.valid">Submit</button>
+  <button type="button" class="btn btn-danger pull-right margin-left" (click)="returnToCourseList()">Cancel</button>
 </form>
