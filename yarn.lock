@@ -76,6 +76,18 @@
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/@angularclass/hmr/-/hmr-1.2.2.tgz#46a18f89a1e94d05c268b83c9480e005f73fc265"
 
+"@ngrx/core@ngrx/core":
+  version "1.2.0"
+  resolved "https://codeload.github.com/ngrx/core/tar.gz/81700e8716ad6bdd95de93b5c1549aaba94cf6fd"
+
+"@ngrx/store-devtools@ngrx/store-devtools":
+  version "3.2.4"
+  resolved "https://codeload.github.com/ngrx/store-devtools/tar.gz/de01f4a457050e71e2cbddbf17925b9463c9d03e"
+
+"@ngrx/store@ngrx/store":
+  version "2.2.2"
+  resolved "https://codeload.github.com/ngrx/store/tar.gz/49e7168757597589d16943a364d434bec5976c14"
+
 "@types/fs-extra@0.0.33":
   version "0.0.33"
   resolved "https://registry.yarnpkg.com/@types/fs-extra/-/fs-extra-0.0.33.tgz#a8719c417b080c012d3497b28e228ac09745fdf2"
