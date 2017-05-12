@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { AuthorizationService } from '../../models/authorization.service';
+import { Store } from '@ngrx/store';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-header',
@@ -10,9 +11,8 @@ import { AuthorizationService } from '../../models/authorization.service';
 export class HeaderComponent {
   public userInfo = null;
 
-  constructor(public authService: AuthorizationService, private changeDetector: ChangeDetectorRef) {
-    authService.userInfo.subscribe((user) => {
-      // console.log(user);
+  constructor(public store: Store<any>, private changeDetector: ChangeDetectorRef) {
+    this.store.select<User>('userInfo').subscribe((user) => {
       this.userInfo = user;
       this.changeDetector.markForCheck();
     });

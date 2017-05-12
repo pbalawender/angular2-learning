@@ -102,7 +102,7 @@ module.exports = function (options) {
              }
            }
          ],
-         exclude: [/\.(spec|e2e)\.ts$/]
+         exclude: [/node_modules/, /\.(spec|e2e)\.ts$/]
        },
 
         /*

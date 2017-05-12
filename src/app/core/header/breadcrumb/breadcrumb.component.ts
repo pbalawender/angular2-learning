@@ -54,7 +54,11 @@ export class BreadcrumbComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy() {
-    this.routerEventsSubscription.unsubscribe();
-    this.courseSubscription.unsubscribe();
+    if (this.routerEventsSubscription) {
+      this.routerEventsSubscription.unsubscribe();
+    }
+    if (this.courseSubscription) {
+      this.courseSubscription.unsubscribe();
+    }
   }
 }

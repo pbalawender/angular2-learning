@@ -7,7 +7,8 @@ import {
 } from '@angular/core';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
 import { RouterModule, PreloadAllModules } from '@angular/router';
-
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 /*
  * Platform and Environment providers/directives/pipes
  */
@@ -34,6 +35,7 @@ import { LoaderService } from './models/loader.service';
 import { CourseService } from './models/course.service';
 // import { RequestOptions } from 'http';
 import { AuthorizedHttpService } from './models/authorized.http.service';
+import { userInfoReducer } from './models/authorization.reducer';
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -59,6 +61,10 @@ type StoreType = {
     HttpModule,
     CoreModule,
     LoginModule,
+    StoreModule.provideStore({ userInfo: userInfoReducer }),
+    StoreDevtoolsModule.instrumentOnlyWithExtension({
+      maxAge: 5
+    }),
     RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules })
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection

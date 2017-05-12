@@ -1,17 +1,19 @@
-import { Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { Injectable, } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 import { Http } from '@angular/http';
+import { Store } from '@ngrx/store';
+import { LOGIN, LOGOUT } from './authorization.reducer';
 
 @Injectable()
-export class AuthorizationService implements OnDestroy {
+export class AuthorizationService {
   public static CURRENT_USER_INFO = 'currentUser';
   public static TOKEN = 'token';
-  public userInfo: Observable<any>;
-  private _userInfo: BehaviorSubject<any>;
 
-  constructor(private http: Http) {
-    this._userInfo = new BehaviorSubject(this.getUserInfo());
-    this.userInfo = this._userInfo.asObservable();
+  constructor(private http: Http, private store: Store<any>) {
+    const userInfo = this.getUserInfo();
+    if (userInfo) {
+      this.store.dispatch({type: LOGIN, payload: userInfo});
+    }
   }
 
   public login(login: string, password: string): Observable<boolean> {
@@ -27,7 +29,7 @@ export class AuthorizationService implements OnDestroy {
       const userInfo = response.json();
       console.log(userInfo);
       localStorage.setItem(AuthorizationService.CURRENT_USER_INFO, JSON.stringify(userInfo));
-      this._userInfo.next(userInfo);
+      this.store.dispatch({type: LOGIN, payload: userInfo});
       subject.next(true);
     }, (err) => {
       console.log(err);
@@ -40,17 +42,13 @@ export class AuthorizationService implements OnDestroy {
   public logout(): boolean {
     localStorage.removeItem(AuthorizationService.CURRENT_USER_INFO);
     localStorage.removeItem(AuthorizationService.TOKEN);
-    this._userInfo.next(null);
+    this.store.dispatch({type: LOGOUT, payload: null});
     return true;
   }
 
   public isAuthenticated(): boolean {
     const currentUser = JSON.parse(localStorage.getItem(AuthorizationService.CURRENT_USER_INFO));
     return !!currentUser;
-  }
-
-  public ngOnDestroy() {
-    // empty for now
   }
 
   private getUserInfo() {
